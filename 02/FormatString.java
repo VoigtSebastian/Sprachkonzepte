@@ -1,7 +1,7 @@
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
-public final class StringSpec {
+public final class FormatString {
     static String ARGUMENT_INDEX = "(\\d+$)?";
     static String FLAGS = "[-#+ 0,(]*";
     static String WIDTH = "\\d*";
