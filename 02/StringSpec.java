@@ -10,37 +10,32 @@ public final class StringSpec {
     static String CONVERSION = "[a-zA-Z%]";
     static String PATTERN = "(%" + ARGUMENT_INDEX + FLAGS + WIDTH + PRECISION + DATE_TIME + CONVERSION + ")";
 
-    private StringSpec() {
-    }
-
     public static void main(String[] args) {
         if (args.length != 1) {
             System.err.println("java RegexTest <format-string>");
             System.exit(1);
         }
-        Pattern pattern = Pattern.compile(PATTERN);
-        Matcher matcher = pattern.matcher(args[0]);
 
-        String fullText = args[0];
-        String currentText = "";
+        String formatString = args[0];
         int subStringStart = 0;
 
+        Pattern pattern = Pattern.compile(PATTERN);
+        Matcher matcher = pattern.matcher(formatString);
+
         while (matcher.find()) {
-            currentText = fullText.substring(subStringStart, matcher.start());
-            subStringStart = matcher.end();
-
-            printText(currentText);
+            printText(formatString.substring(subStringStart, matcher.start()));
             printFormat(matcher.group());
-        }
-        currentText = fullText.substring(subStringStart);
-        printText(currentText);
 
-        System.out.println("\n");
+            subStringStart = matcher.end();
+        }
+        printText(formatString.substring(subStringStart));
+
+        System.out.println();
     }
 
     private static void printText(String text) {
         if (!text.isEmpty())
-            System.out.printf("Text(%s)", text);
+            System.out.printf("TEXT(%s)", text);
     }
 
     private static void printFormat(String format) {
