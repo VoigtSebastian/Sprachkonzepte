@@ -1,3 +1,7 @@
+/*
+ TimeLexer: Takes in time in english format (HH:mm am|pm) and the additional format for 12
+ midnight|noon and builds tokens from this text.
+ */
 lexer grammar TimeLexer;
 
 // Uses lazy evaluation to skip some exclusion
