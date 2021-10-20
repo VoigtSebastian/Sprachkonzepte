@@ -1,8 +1,9 @@
 lexer grammar TimeLexer;
 
-Number: Hour ':' Minute;
+Number: Hour ':' Minute ' ' TimeOfDay;
 
-fragment Hour: ('2' [0-3]) | ([01][0-9]);
+fragment TimeOfDay: 'am' | 'pm';
+fragment Hour: [01][0-9];
 fragment Minute: [1-6]? [0-9];
 
 WS: [ \t\r\n]+ -> channel(HIDDEN);
