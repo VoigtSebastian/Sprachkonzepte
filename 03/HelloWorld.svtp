@@ -1,0 +1,8 @@
+fn hello_world(message) {
+    print(message);
+}
+
+fn main(args) {
+    val helloWorld = "hello world";
+    hello_world(helloWorld);
+}
