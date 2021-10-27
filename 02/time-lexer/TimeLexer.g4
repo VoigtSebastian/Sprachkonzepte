@@ -12,7 +12,7 @@ fragment AmPmTime: (Hour (COLON Minute)? SPACE TimeOfDay);
 fragment MidnightNoon: 'midnight' | 'noon';
 fragment TimeOfDay: 'am' | 'pm';
 fragment Hour: [01][0-9];
-fragment Minute: [0-6] [0-9];
+fragment Minute: [0-5] [0-9];
 
 fragment COLON: ':';
 fragment SPACE: ' ';
