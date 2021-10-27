@@ -1,1 +1,5 @@
 .antlr/
+SVTP.jar
+SVTPLexer.interp
+SVTPLexer.java
+SVTPLexer.tokens

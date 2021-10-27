@@ -1,8 +1,8 @@
-fn hello_world(message) {
+fn helloWorld(message) {
     print(message);
 }
 
 fn main(args) {
     val helloWorld = "hello world";
-    hello_world(helloWorld);
+    helloWorld(helloWorld);
 }
