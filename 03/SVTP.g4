@@ -1,26 +1,16 @@
 lexer grammar SVTP;
+// $antlr-format columnLimit 180
 
 Functions: Function+;
 
-fragment Function:
-	'fn' LETTERS FunctionArguments CURLY_BRACKET_OPEN FunctionBody CURLY_BRACKET_CLOSED;
-// Function return values
+fragment Function: 'fn' LETTERS FunctionParameters CURLY_BRACKET_OPEN FunctionBody CURLY_BRACKET_CLOSED;
+fragment FunctionParameters: PARENTHESIS_OPEN LETTERS (COMMA LETTERS)* PARENTHESIS_CLOSED;
 
-fragment FunctionBody: (FunctionCall | ValueDefinition)* (
-		'return' FunctionCall
-		| NUMBER+
-		| StringDefinition
-	)?;
+fragment FunctionBody: (FunctionCall | ValueDefinition)* ( 'return' FunctionCall | NUMBER+ | StringDefinition)?;
+fragment ValueDefinition: 'val' LETTERS '=' (FunctionCall | NUMBER+ | StringDefinition) SEMICOLON;
 
-fragment FunctionCall:
-	LETTERS PARENTHESIS_OPEN FunctionArguments PARENTHESIS_CLOSED SEMICOLON;
-fragment FunctionArguments:
-	PARENTHESIS_OPEN LETTERS (COMMA LETTERS)* PARENTHESIS_CLOSED;
-
-fragment ValueDefinition:
-	'val' LETTERS '=' (FunctionCall | NUMBER+ | StringDefinition) SEMICOLON;
-
-// Value definition: Function return values, numbers or strings
+fragment FunctionCall: LETTERS PARENTHESIS_OPEN FunctionArguments PARENTHESIS_CLOSED SEMICOLON;
+fragment FunctionArguments: PARENTHESIS_OPEN LETTERS (COMMA LETTERS)* PARENTHESIS_CLOSED;
 
 fragment StringDefinition: QUOTATION_MARK .*? QUOTATION_MARK;
 
