@@ -3,3 +3,6 @@ SVTP.jar
 SVTPLexer.interp
 SVTPLexer.java
 SVTPLexer.tokens
+ast/
+parser/
+xml/
