@@ -1,29 +1,28 @@
 lexer grammar SVTPLexer;
 // $antlr-format columnLimit 180
 
-Functions: Function+;
+FN: 'fn';
 
-fragment Function: 'fn' LETTERS FunctionParameters CURLY_BRACKET_OPEN FunctionBody CURLY_BRACKET_CLOSED;
-fragment FunctionParameters: PARENTHESIS_OPEN LETTERS (COMMA LETTERS)* PARENTHESIS_CLOSED;
+COMMA: ',';
+SEMICOLON: ';';
 
-fragment FunctionBody: (FunctionCall | ValueDefinition)* ( 'return ' FunctionCall | NUMBER+ | StringDefinition)?;
-fragment ValueDefinition: 'val' LETTERS '=' (FunctionCall | NUMBER+ | StringDefinition) SEMICOLON;
+QUOTATION_MARK: '"';
+CURLY_BRACKET_OPEN: '{';
+CURLY_BRACKET_CLOSED: '}';
+PARENTHESIS_OPEN: '(';
+PARENTHESIS_CLOSED: ')';
 
-fragment FunctionCall: LETTERS PARENTHESIS_OPEN FunctionArguments PARENTHESIS_CLOSED SEMICOLON;
-fragment FunctionArguments: PARENTHESIS_OPEN LETTERS (COMMA LETTERS)* PARENTHESIS_CLOSED;
+VAL: 'val';
+ASSIGN: '=';
 
-fragment StringDefinition: QUOTATION_MARK .*? QUOTATION_MARK;
+RETURN: 'return';
 
-fragment NUMBER: [0-9];
-fragment LETTERS: [a-zA-Z]+;
+NUMBERS: DIGIT+;
+STRING: '"' .*? '"';
 
-fragment COMMA: ',';
-fragment SEMICOLON: ',';
+IDENTIFIER: LETTER*;
 
-fragment QUOTATION_MARK: '"';
-fragment CURLY_BRACKET_OPEN: '{';
-fragment CURLY_BRACKET_CLOSED: '}';
-fragment PARENTHESIS_OPEN: '(';
-fragment PARENTHESIS_CLOSED: ')';
+fragment DIGIT: [0-9];
+fragment LETTER: [a-zA-Z];
 
 WS: [ \t\r\n]+ -> channel(HIDDEN);
