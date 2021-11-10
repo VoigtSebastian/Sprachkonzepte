@@ -1,8 +1,8 @@
 .antlr/
 SVTP.jar
-SVTPLexer.interp
-SVTPLexer.java
-SVTPLexer.tokens
+SVTP*.interp
+SVTP*.java
+SVTP*.tokens
 ast/
 parser/
 xml/

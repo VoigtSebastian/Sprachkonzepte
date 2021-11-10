@@ -1,9 +1,4 @@
 <?xml version="1.0"?>
-<!--
-    build.xml
-    Autor: H.Drachenfels
-    Erstellt am: 24.9.2021
- -->
 <project default="jar">
 
     <property name="grammar" value="SVTP" />
@@ -31,6 +26,10 @@
         <java jar="${antlr}" fork="true" failonerror="true">
             <arg value="${grammar}Lexer.g4" />
         </java>
+        <echo>java -jar ${antlr} ${grammar}Parser.g4</echo>
+        <java jar="${antlr}" fork="true" failonerror="true">
+            <arg value="${grammar}Parser.g4" />
+        </java>
     </target>
 
     <target name="clean">
@@ -40,6 +39,9 @@
             <fileset dir="." includes="${grammar}*.interp"/>
             <fileset dir="." includes="${grammar}*.tokens"/>
             <fileset dir="." includes="${grammar}Lexer.java"/>
+            <fileset dir="." includes="${grammar}Parser.java"/>
+            <fileset dir="." includes="${grammar}ParserListener.java"/>
+            <fileset dir="." includes="${grammar}ParserBaseListener.java"/>
         </delete>
     </target>
 

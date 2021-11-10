@@ -2,6 +2,11 @@ fn helloWorld(message) {
     print(message);
 }
 
+fn aFunction(asdf, b, c) {
+    print(message);
+    val q = b;
+}
+
 fn main(args) {
     val helloWorld = "hello world";
     helloWorld(helloWorld);
