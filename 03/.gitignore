@@ -1,8 +1,7 @@
 .antlr/
-SVTP.jar
-SVTP*.interp
-SVTP*.java
-SVTP*.tokens
+*.jar
+*.interp
+*.tokens
 ast/
 parser/
 xml/
