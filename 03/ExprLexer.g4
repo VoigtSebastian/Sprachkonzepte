@@ -1,4 +1,4 @@
-lexer grammar SvtpLexer;
+lexer grammar ExprLexer;
 // $antlr-format columnLimit 180
 
 FN: 'fn';

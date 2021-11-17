@@ -1,8 +1,8 @@
-parser grammar SvtpParser;
+parser grammar ExprParser;
 // $antlr-format columnLimit 180
 
 options {
-	tokenVocab = SvtpLexer;
+	tokenVocab = ExprLexer;
 }
 
 start: expr EOF;
