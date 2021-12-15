@@ -5,3 +5,7 @@
 ast/
 parser/
 xml/
+ExprLexer.java
+ExprParserListener.java
+ExprParserBaseListener.java
+ExprParser.java
