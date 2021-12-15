@@ -11,6 +11,13 @@
         </jar>
     </target>
 
+    <target name="ast" depends="compile">
+        <jar destfile="${grammar}ToAst.jar">
+            <fileset dir="." includes="*.class" />
+            <zipfileset includes="**/*.class" src="${antlr}" />
+        </jar>
+    </target>
+
     <target name="compile" depends="generate">
         <javac debug="on" srcdir="." destdir="." sourcepath="" listfiles="true" includeantruntime="false">
             <classpath>
@@ -41,6 +48,7 @@
             <fileset dir="." includes="${grammar}Parser.java" />
             <fileset dir="." includes="${grammar}ParserListener.java" />
             <fileset dir="." includes="${grammar}ParserBaseListener.java" />
+            <fileset dir="." includes="${grammar}ToAst.jar" />
         </delete>
     </target>
 
