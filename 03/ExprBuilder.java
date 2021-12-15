@@ -11,6 +11,16 @@ public final class ExprBuilder extends ExprParserBaseListener {
     }
 
     @Override
+    public void exitStart(ExprParser.StartContext ctx) {
+        if (ctx.getChildCount() == 3) {
+            Expr right = this.stack.pop();
+            Expr left = this.stack.pop();
+            String op = ctx.getChild(1).getText();
+            this.stack.push(new Operation(left, op, right));
+        }
+    }
+
+    @Override
     public void exitExpr(ExprParser.ExprContext ctx) {
         if (ctx.getChildCount() == 3) {
             Expr right = this.stack.pop();
@@ -18,30 +28,5 @@ public final class ExprBuilder extends ExprParserBaseListener {
             String op = ctx.getChild(1).getText();
             this.stack.push(new Operation(left, op, right));
         }
-    }
-
-    @Override
-    public void exitMultExpr(ExprParser.MultExprContext ctx) {
-        if (ctx.getChildCount() == 3) {
-            Expr right = this.stack.pop();
-            Expr left = this.stack.pop();
-            String op = ctx.getChild(1).getText();
-            this.stack.push(new Operation(left, op, right));
-        }
-    }
-
-    @Override
-    public void exitValue(ExprParser.ValueContext ctx) {
-        String s = ctx.Number().getText();
-        switch (ctx.getStart().getType()) {
-        case ExprLexer.PLUS:
-            s = ctx.PLUS().getText() + s;
-            break;
-        case ExprLexer.MINUS:
-            s = ctx.MINUS().getText() + s;
-            break;
-        }
-
-        this.stack.push(new Value(s));
     }
 }

@@ -1,11 +1,10 @@
+
 // ExprToAst.java
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
 
 public final class ExprToAst {
-    private ExprToAst() { }
-
     public static void main(String[] args) throws Exception {
         ExprLexer lexer = new ExprLexer(CharStreams.fromStream(System.in));
         ExprParser parser = new ExprParser(new CommonTokenStream(lexer));
@@ -19,4 +18,3 @@ public final class ExprToAst {
         System.out.printf("Expr.toString() = \"%s\"%n", ast);
     }
 }
-
