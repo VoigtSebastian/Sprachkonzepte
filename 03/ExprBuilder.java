@@ -10,23 +10,17 @@ public final class ExprBuilder extends ExprParserBaseListener {
         return this.stack.pop();
     }
 
-    @Override
-    public void exitStart(ExprParser.StartContext ctx) {
-        if (ctx.getChildCount() == 3) {
-            Expr right = this.stack.pop();
-            Expr left = this.stack.pop();
-            String op = ctx.getChild(1).getText();
-            this.stack.push(new Operation(left, op, right));
-        }
-    }
+    // @Override
+    // public void enterFunction(ExprParser.FunctionContext ctx) {
+    // for (ParseTree child : ctx.children) {
+    // System.out.println(child.getText());
+    // }
+    // }
 
     @Override
-    public void exitExpr(ExprParser.ExprContext ctx) {
-        if (ctx.getChildCount() == 3) {
-            Expr right = this.stack.pop();
-            Expr left = this.stack.pop();
-            String op = ctx.getChild(1).getText();
-            this.stack.push(new Operation(left, op, right));
-        }
+    public void enterFunctionIdentifier(ExprParser.FunctionIdentifierContext ctx) {
+        String[] arguments = {};
+        String functionIdentifier = ctx.getChild(1).toString();
+        stack.push(new Function(functionIdentifier, arguments));
     }
 }

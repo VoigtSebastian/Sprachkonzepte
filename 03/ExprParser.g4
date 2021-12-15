@@ -7,7 +7,7 @@ options {
 
 start: expr EOF;
 
-expr: function function*;
+expr: function*;
 
 function: functionIdentifier functionBody;
 functionIdentifier: FN IDENTIFIER PARENTHESIS_OPEN functionArguments PARENTHESIS_CLOSED;

@@ -13,6 +13,7 @@ public final class ExprToAst {
             System.err.printf("%d error(s) detected%n", parser.getNumberOfSyntaxErrors());
             System.exit(1);
         }
+        System.out.println("Not errors detected");
 
         Expr ast = new ExprBuilder().build(tree);
         System.out.printf("Expr.toString() = \"%s\"%n", ast);
