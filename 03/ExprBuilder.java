@@ -9,4 +9,43 @@ public final class ExprBuilder extends ExprParserBaseListener {
         new ParseTreeWalker().walk(this, tree);
         return this.stack.pop();
     }
+
+    @Override
+    public void enterFunctionCall(ExprParser.FunctionCallContext ctx) {
+        String identifier = ctx.getChild(1).toString();
+        stack.push(new Function(identifier));
+    }
+
+    @Override
+    public void enterNumber(ExprParser.NumberContext ctx) {
+        Double number = Double.parseDouble(ctx.getChild(0).toString());
+
+        Function currentFunction = (Function) stack.pop();
+        currentFunction.addArgument(new Number(number));
+
+        stack.push(currentFunction);
+    }
+
+    @Override
+    public void enterString(ExprParser.StringContext ctx) {
+        String text = ctx.getChild(0).toString();
+        text = text.substring(1, text.length() - 1);
+
+        Function currentFunction = (Function) stack.pop();
+        currentFunction.addArgument(new StaticString(text));
+
+        stack.push(currentFunction);
+    }
+
+    @Override
+    public void exitFunctionCall(ExprParser.FunctionCallContext ctx) {
+        if (stack.size() == 1)
+            return;
+
+        Function currentFunction = (Function) stack.pop();
+        Function mainFunction = (Function) stack.pop();
+
+        mainFunction.addArgument(currentFunction);
+        stack.push(mainFunction);
+    }
 }

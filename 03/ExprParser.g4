@@ -9,4 +9,7 @@ start: expr EOF;
 
 expr: functionCall;
 
-functionCall: PARENTHESIS_OPEN IDENTIFIER (functionCall | NUMBER | STRING)* PARENTHESIS_CLOSED;
+functionCall: PARENTHESIS_OPEN IDENTIFIER (functionCall | number | string)* PARENTHESIS_CLOSED;
+
+number: NUMBER;
+string: STRING;
