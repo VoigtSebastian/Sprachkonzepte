@@ -6,7 +6,7 @@ public final class ExprBuilder extends ExprParserBaseListener {
     private Stack<Expr> stack = new Stack<Expr>();
 
     public ExprBuilder() {
-        stack.push(new Operation());
+        stack.push(new Script());
     }
 
     public Expr build(ParseTree tree) {
@@ -45,9 +45,9 @@ public final class ExprBuilder extends ExprParserBaseListener {
     public void exitFunctionCall(ExprParser.FunctionCallContext ctx) {
         if (stack.size() == 2) {
             Function currentFunction = (Function) stack.pop();
-            Operation operation = (Operation) stack.pop();
-            operation.addFunction(currentFunction);
-            stack.push(operation);
+            Script script = (Script) stack.pop();
+            script.addFunction(currentFunction);
+            stack.push(script);
             return;
         }
 

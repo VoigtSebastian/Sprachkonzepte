@@ -1,9 +1,9 @@
 import java.util.LinkedList;
 
-public final class Operation extends Expr {
+public final class Script extends Expr {
     final LinkedList<Function> functions = new LinkedList<>();
 
-    public Operation() {
+    public Script() {
     }
 
     public void addFunction(Function function) {
