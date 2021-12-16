@@ -1,23 +1,10 @@
 lexer grammar ExprLexer;
 // $antlr-format columnLimit 180
 
-FN: 'fn';
-
-COMMA: ',';
-SEMICOLON: ';';
-
-QUOTATION_MARK: '"';
-CURLY_BRACKET_OPEN: '{';
-CURLY_BRACKET_CLOSED: '}';
 PARENTHESIS_OPEN: '(';
 PARENTHESIS_CLOSED: ')';
 
-VAL: 'val';
-ASSIGN: '=';
-
-RETURN: 'return';
-
-NUMBERS: DIGIT+;
+NUMBER: DIGIT+;
 STRING: '"' .*? '"';
 
 IDENTIFIER: LETTER+;

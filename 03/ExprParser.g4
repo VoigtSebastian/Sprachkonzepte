@@ -7,15 +7,6 @@ options {
 
 start: expr EOF;
 
-expr: function*;
+expr: functionCall;
 
-function: functionIdentifier functionBody;
-functionIdentifier: FN IDENTIFIER PARENTHESIS_OPEN functionArguments PARENTHESIS_CLOSED;
-functionBody: CURLY_BRACKET_OPEN (assignValue | functionCall)* returnValue? CURLY_BRACKET_CLOSED;
-
-assignValue: VAL IDENTIFIER ASSIGN (functionCall | STRING | NUMBERS | IDENTIFIER) SEMICOLON;
-returnValue: RETURN (functionCall | STRING | NUMBERS | IDENTIFIER) SEMICOLON;
-
-functionCall: IDENTIFIER PARENTHESIS_OPEN functionArguments PARENTHESIS_CLOSED SEMICOLON;
-
-functionArguments: (IDENTIFIER (COMMA IDENTIFIER)*)?;
+functionCall: PARENTHESIS_OPEN IDENTIFIER (functionCall | NUMBER | STRING)* PARENTHESIS_CLOSED;
