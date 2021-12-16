@@ -7,7 +7,7 @@ options {
 
 start: expr EOF;
 
-expr: functionCall;
+expr: functionCall*;
 
 functionCall: PARENTHESIS_OPEN IDENTIFIER (functionCall | number | string)* PARENTHESIS_CLOSED;
 

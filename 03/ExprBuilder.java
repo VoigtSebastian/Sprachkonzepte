@@ -5,6 +5,10 @@ import java.util.Stack;
 public final class ExprBuilder extends ExprParserBaseListener {
     private Stack<Expr> stack = new Stack<Expr>();
 
+    public ExprBuilder() {
+        stack.push(new Operation());
+    }
+
     public Expr build(ParseTree tree) {
         new ParseTreeWalker().walk(this, tree);
         return this.stack.pop();
@@ -39,8 +43,13 @@ public final class ExprBuilder extends ExprParserBaseListener {
 
     @Override
     public void exitFunctionCall(ExprParser.FunctionCallContext ctx) {
-        if (stack.size() == 1)
+        if (stack.size() == 2) {
+            Function currentFunction = (Function) stack.pop();
+            Operation operation = (Operation) stack.pop();
+            operation.addFunction(currentFunction);
+            stack.push(operation);
             return;
+        }
 
         Function currentFunction = (Function) stack.pop();
         Function mainFunction = (Function) stack.pop();
