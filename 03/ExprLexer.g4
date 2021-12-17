@@ -3,6 +3,10 @@ lexer grammar ExprLexer;
 
 PARENTHESIS_OPEN: '(';
 PARENTHESIS_CLOSED: ')';
+BRACKET_OPEN: '[';
+BRACKET_CLOSED: ']';
+
+DEF: 'def';
 
 NUMBER: DIGIT+;
 STRING: '"' .*? '"';

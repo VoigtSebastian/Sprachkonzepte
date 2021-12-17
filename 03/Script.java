@@ -1,12 +1,12 @@
 import java.util.LinkedList;
 
 public final class Script extends Expr {
-    final LinkedList<Function> functions = new LinkedList<>();
+    final LinkedList<FunctionDefinition> functions = new LinkedList<>();
 
     public Script() {
     }
 
-    public void addFunction(Function function) {
+    public void addFunctionDefinition(FunctionDefinition function) {
         functions.add(function);
     }
 

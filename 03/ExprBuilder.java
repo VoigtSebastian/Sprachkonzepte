@@ -15,6 +15,20 @@ public final class ExprBuilder extends ExprParserBaseListener {
     }
 
     @Override
+    public void enterFunctionDefinition(ExprParser.FunctionDefinitionContext ctx) {
+        String identifier = ctx.getChild(2).toString();
+        stack.push(new FunctionDefinition(identifier));
+    }
+
+    @Override
+    public void enterFunctionArgument(ExprParser.FunctionArgumentContext ctx) {
+        String identifier = ctx.getChild(0).toString();
+        FunctionDefinition definition = (FunctionDefinition) stack.pop();
+        definition.addArgument(identifier);
+        stack.push(definition);
+    }
+
+    @Override
     public void enterFunctionCall(ExprParser.FunctionCallContext ctx) {
         String identifier = ctx.getChild(1).toString();
         stack.push(new Function(identifier));
@@ -25,7 +39,7 @@ public final class ExprBuilder extends ExprParserBaseListener {
         Double number = Double.parseDouble(ctx.getChild(0).toString());
 
         Function currentFunction = (Function) stack.pop();
-        currentFunction.addArgument(new Number(number));
+        currentFunction.addParameter(new Number(number));
 
         stack.push(currentFunction);
     }
@@ -36,25 +50,43 @@ public final class ExprBuilder extends ExprParserBaseListener {
         text = text.substring(1, text.length() - 1);
 
         Function currentFunction = (Function) stack.pop();
-        currentFunction.addArgument(new StaticString(text));
+        currentFunction.addParameter(new StaticString(text));
+
+        stack.push(currentFunction);
+    }
+
+    @Override
+    public void enterIdentifierAsArgument(ExprParser.IdentifierAsArgumentContext ctx) {
+        String text = ctx.getChild(0).toString();
+
+        Function currentFunction = (Function) stack.pop();
+        currentFunction.addParameter(new Value(text));
 
         stack.push(currentFunction);
     }
 
     @Override
     public void exitFunctionCall(ExprParser.FunctionCallContext ctx) {
-        if (stack.size() == 2) {
+        if (stack.size() == 3) {
             Function currentFunction = (Function) stack.pop();
-            Script script = (Script) stack.pop();
-            script.addFunction(currentFunction);
-            stack.push(script);
+            FunctionDefinition definition = (FunctionDefinition) stack.pop();
+            definition.setFunctionCall(currentFunction);
+            stack.push(definition);
             return;
         }
 
         Function currentFunction = (Function) stack.pop();
         Function mainFunction = (Function) stack.pop();
 
-        mainFunction.addArgument(currentFunction);
+        mainFunction.addParameter(currentFunction);
         stack.push(mainFunction);
+    }
+
+    @Override
+    public void exitFunctionDefinition(ExprParser.FunctionDefinitionContext ctx) {
+        FunctionDefinition definition = (FunctionDefinition) stack.pop();
+        Script script = (Script) stack.pop();
+        script.addFunctionDefinition(definition);
+        stack.push(script);
     }
 }

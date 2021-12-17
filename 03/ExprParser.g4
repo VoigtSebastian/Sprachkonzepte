@@ -7,9 +7,14 @@ options {
 
 start: expr EOF;
 
-expr: functionCall*;
+expr: functionDefinition*;
 
-functionCall: PARENTHESIS_OPEN IDENTIFIER (functionCall | number | string)* PARENTHESIS_CLOSED;
+functionDefinition:
+	PARENTHESIS_OPEN DEF IDENTIFIER BRACKET_OPEN functionArgument* BRACKET_CLOSED functionCall PARENTHESIS_CLOSED;
+functionArgument: IDENTIFIER;
+
+functionCall: PARENTHESIS_OPEN IDENTIFIER (functionCall | number | string | identifierAsArgument)* PARENTHESIS_CLOSED;
+identifierAsArgument: IDENTIFIER;
 
 number: NUMBER;
 string: STRING;
