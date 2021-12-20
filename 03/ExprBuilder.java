@@ -45,14 +45,14 @@ public final class ExprBuilder extends ExprParserBaseListener {
     @Override
     public void enterFunctionCall(ExprParser.FunctionCallContext ctx) {
         String identifier = ctx.getChild(1).toString();
-        stack.push(new Function(identifier));
+        stack.push(new FunctionCall(identifier));
     }
 
     @Override
     public void enterNumber(ExprParser.NumberContext ctx) {
         Double number = Double.parseDouble(ctx.getChild(0).toString());
 
-        Function currentFunction = (Function) stack.pop();
+        FunctionCall currentFunction = (FunctionCall) stack.pop();
         currentFunction.addParameter(new Number(number));
 
         stack.push(currentFunction);
@@ -63,7 +63,7 @@ public final class ExprBuilder extends ExprParserBaseListener {
         String text = ctx.getChild(0).toString();
         text = text.substring(1, text.length() - 1);
 
-        Function currentFunction = (Function) stack.pop();
+        FunctionCall currentFunction = (FunctionCall) stack.pop();
         currentFunction.addParameter(new StaticString(text));
 
         stack.push(currentFunction);
@@ -73,7 +73,7 @@ public final class ExprBuilder extends ExprParserBaseListener {
     public void enterIdentifierAsArgument(ExprParser.IdentifierAsArgumentContext ctx) {
         String text = ctx.getChild(0).toString();
 
-        Function currentFunction = (Function) stack.pop();
+        FunctionCall currentFunction = (FunctionCall) stack.pop();
         currentFunction.addParameter(new Value(text));
 
         stack.push(currentFunction);
@@ -82,15 +82,15 @@ public final class ExprBuilder extends ExprParserBaseListener {
     @Override
     public void exitFunctionCall(ExprParser.FunctionCallContext ctx) {
         if (stack.size() == 3) {
-            Function currentFunction = (Function) stack.pop();
+            FunctionCall currentFunction = (FunctionCall) stack.pop();
             FunctionDefinition definition = (FunctionDefinition) stack.pop();
             definition.setFunctionCall(currentFunction);
             stack.push(definition);
             return;
         }
 
-        Function currentFunction = (Function) stack.pop();
-        Function mainFunction = (Function) stack.pop();
+        FunctionCall currentFunction = (FunctionCall) stack.pop();
+        FunctionCall mainFunction = (FunctionCall) stack.pop();
 
         mainFunction.addParameter(currentFunction);
         stack.push(mainFunction);
@@ -103,4 +103,5 @@ public final class ExprBuilder extends ExprParserBaseListener {
         script.addFunctionDefinition(definition);
         stack.push(script);
     }
+
 }

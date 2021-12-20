@@ -1,10 +1,10 @@
 import java.util.LinkedList;
 
-public final class Function extends Expr {
+public final class FunctionCall extends Expr {
     final String identifier;
     final LinkedList<Expr> parameters = new LinkedList<>();
 
-    public Function(String identifier) {
+    public FunctionCall(String identifier) {
         this.identifier = identifier;
     }
 
