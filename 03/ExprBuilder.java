@@ -1,16 +1,30 @@
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
+
+import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.Stack;
 
 public final class ExprBuilder extends ExprParserBaseListener {
     private Stack<Expr> stack = new Stack<Expr>();
+    private LinkedList<FunctionDefinition> buildInFunctions = new LinkedList<>(
+            Arrays.asList(new FunctionDefinition("print", true), new FunctionDefinition("add", true),
+                    new FunctionDefinition("sub", false).addArgument("dividend").addArgument("divisor"),
+                    new FunctionDefinition("mul", true),
+                    new FunctionDefinition("div", true)));
 
     public ExprBuilder() {
-        stack.push(new Script());
+        Script script = new Script();
+        for (FunctionDefinition function : this.buildInFunctions) {
+            script.addFunctionDefinition(function);
+        }
+        stack.push(script);
     }
 
     public Expr build(ParseTree tree) {
         new ParseTreeWalker().walk(this, tree);
+        // TODO: check for functions with same name and main function
+        // TODO: check for argument count?
         return this.stack.pop();
     }
 
