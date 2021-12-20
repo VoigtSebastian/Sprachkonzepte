@@ -14,6 +14,7 @@ public final class Script extends Expr {
     }
 
     public void addFunctionDefinition(FunctionDefinition function) {
+        // dynamic semantics
         if (this.functions.containsKey(function.getIdentifier()))
             throw new DuplicateFunctionError(function.getIdentifier());
         functions.put(function.getIdentifier(), function);

@@ -13,6 +13,12 @@ public final class ExprBuilder extends ExprParserBaseListener {
                     new FunctionDefinition("mul", true),
                     new FunctionDefinition("div", true)));
 
+    public final class MissingMainFunction extends RuntimeException {
+        public MissingMainFunction() {
+            super("The script is missing a main function");
+        }
+    }
+
     public ExprBuilder() {
         Script script = new Script();
         for (FunctionDefinition function : this.buildInFunctions) {
@@ -23,9 +29,12 @@ public final class ExprBuilder extends ExprParserBaseListener {
 
     public Expr build(ParseTree tree) {
         new ParseTreeWalker().walk(this, tree);
-        // TODO: check for functions with same name and main function
-        // TODO: check for argument count?
-        return this.stack.pop();
+        Script script = (Script) this.stack.pop();
+        // dynamic semantics
+        if (!script.functions.containsKey("main")) {
+            throw new MissingMainFunction();
+        }
+        return script;
     }
 
     @Override
