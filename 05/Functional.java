@@ -8,7 +8,8 @@ public class Functional {
     public static void main(String[] args) throws IOException {
         long start = System.nanoTime();
 
-        var n = Files.lines(Paths.get(args[0]))
+        var n = Files
+                .lines(Paths.get(args[0]))
                 .map(l -> l.length())
                 .filter(size -> size > 0)
                 .filter(size -> size > MIN_LENGTH)
