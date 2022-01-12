@@ -1,3 +1,0 @@
-(def hello [args] (add "hello" args))
-
-(def main [args] (print (hello args)))
