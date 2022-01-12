@@ -1,8 +1,5 @@
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
-
-import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.Stack;
 
 public final class ExprBuilder extends ExprParserBaseListener {
@@ -18,11 +15,15 @@ public final class ExprBuilder extends ExprParserBaseListener {
         this.stack = new Stack<>();
         Script script = new Script();
         stack.push(script);
-        // Script script = new Script();
-        // for (FunctionDefinition function : this.buildInFunctions) {
-        // script.addFunctionDefinition(function);
-        // }
-        // stack.push(script);
+    }
+
+    public Expr build(ParseTree tree) {
+        new ParseTreeWalker().walk(this, tree);
+
+        Script script = (Script) this.stack.pop();
+        script.check();
+
+        return script;
     }
 
     @Override
@@ -103,11 +104,4 @@ public final class ExprBuilder extends ExprParserBaseListener {
 
         stack.push(script);
     }
-
-    public Expr build(ParseTree tree) {
-        new ParseTreeWalker().walk(this, tree);
-        Script script = (Script) this.stack.pop();
-        return script;
-    }
-
 }

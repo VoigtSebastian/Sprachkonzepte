@@ -5,6 +5,10 @@ public final class Size extends Expr {
         this.size = size;
     }
 
+    public int getSize() {
+        return this.size;
+    }
+
     public String toString() {
         StringBuilder builder = new StringBuilder();
 

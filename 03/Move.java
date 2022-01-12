@@ -11,6 +11,10 @@ public final class Move extends Expr {
         this.amount = amount;
     }
 
+    public int getAmount() {
+        return this.amount;
+    }
+
     public String toString() {
         StringBuilder builder = new StringBuilder();
 
