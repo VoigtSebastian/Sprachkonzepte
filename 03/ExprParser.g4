@@ -7,11 +7,11 @@ options {
 
 start: (settings | move)+ EOF;
 
-settings: sizeDecleration startingPosition;
-move: MOVE (orientation COMMA)* orientation;
+settings: sizeDeceleration startingPosition;
+move: MOVE (orientation COMMA?)* orientation;
 
-sizeDecleration: SIZE NUMBER;
-startingPosition: START NUMBER COMMA NUMBER;
+sizeDeceleration: SIZE NUMBER;
+startingPosition: START NUMBER NUMBER;
 
 orientation: (up | down | left | right);
 up: NUMBER UP;

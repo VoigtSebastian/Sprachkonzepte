@@ -5,7 +5,7 @@ if [ ! -f ./ExprToAst.jar ]; then
     ant ast
 fi
 
-command="java -cp ExprToAst.jar ExprToAst < example_hello-world.notLisp"
+command="java -cp ExprToAst.jar ExprToAst < hello_world.move"
 
 echo $command
 eval $command
