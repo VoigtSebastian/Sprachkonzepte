@@ -62,6 +62,44 @@ public final class Script extends Expr {
         }
     }
 
+    public void execute() {
+        var currentX = this.start.getX();
+        var currentY = this.start.getY();
+
+        this.printField(currentX, currentY);
+        for (Move move : this.moves) {
+            var tuple = move.updateCoordinates(currentX, currentY);
+
+            currentX = tuple.x;
+            currentY = tuple.y;
+
+            if (currentX >= this.size.getSize() || currentX < 0) {
+                throw new MoveOutOfBounds(move.getAmount());
+            }
+            if (currentY >= this.size.getSize() || currentY < 0) {
+                throw new MoveOutOfBounds(move.getAmount());
+            }
+
+            this.printField(currentX, currentY);
+        }
+    }
+
+    public void printField(int currentX, int currentY) {
+        System.out.println();
+
+        for (int y = 0; y < this.size.getSize(); y++) {
+            for (int x = 0; x < this.size.getSize(); x++) {
+                if (y == currentY && x == currentX)
+                    System.out.print("O");
+                else
+                    System.out.print("*");
+            }
+            System.out.println();
+        }
+
+        System.out.println();
+    }
+
     public String toString() {
         StringBuilder builder = new StringBuilder();
         builder.append(this.size);

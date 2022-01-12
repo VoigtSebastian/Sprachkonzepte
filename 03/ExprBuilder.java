@@ -27,15 +27,6 @@ public final class ExprBuilder extends ExprParserBaseListener {
     }
 
     @Override
-    public void enterSettings(ExprParser.SettingsContext ctx) {
-        Script script = (Script) stack.pop();
-        String type = ctx.getChild(0).toString();
-        System.out.println(type);
-
-        stack.push(script);
-    }
-
-    @Override
     public void enterSizeDeceleration(ExprParser.SizeDecelerationContext ctx) {
         Script script = (Script) stack.pop();
 

@@ -2,6 +2,7 @@
 <project default="jar">
 
     <property name="grammar" value="Expr" />
+    <property name="runner" value="Runner" />
     <property name="antlr" value="../antlr-4.9.2-complete.jar" />
 
     <target name="jar" depends="compile">
@@ -13,6 +14,13 @@
 
     <target name="ast" depends="compile">
         <jar destfile="${grammar}ToAst.jar">
+            <fileset dir="." includes="*.class" />
+            <zipfileset includes="**/*.class" src="${antlr}" />
+        </jar>
+    </target>
+
+    <target name="runner" depends="compile">
+        <jar destfile="${grammar}${runner}.jar">
             <fileset dir="." includes="*.class" />
             <zipfileset includes="**/*.class" src="${antlr}" />
         </jar>
@@ -49,6 +57,7 @@
             <fileset dir="." includes="${grammar}ParserListener.java" />
             <fileset dir="." includes="${grammar}ParserBaseListener.java" />
             <fileset dir="." includes="${grammar}ToAst.jar" />
+            <fileset dir="." includes="${grammar}${runner}.jar" />
         </delete>
     </target>
 
