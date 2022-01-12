@@ -5,16 +5,16 @@ options {
 	tokenVocab = ExprLexer;
 }
 
-start: expr EOF;
+start: (settings | move)+ EOF;
 
-expr: functionDefinition*;
+settings: sizeDecleration startingPosition;
+move: MOVE (orientation COMMA)* orientation;
 
-functionDefinition:
-	PARENTHESIS_OPEN DEF IDENTIFIER BRACKET_OPEN functionArgument* BRACKET_CLOSED functionCall PARENTHESIS_CLOSED;
-functionArgument: IDENTIFIER;
+sizeDecleration: SIZE NUMBER;
+startingPosition: START NUMBER COMMA NUMBER;
 
-functionCall: PARENTHESIS_OPEN IDENTIFIER (functionCall | number | string | identifierAsArgument)* PARENTHESIS_CLOSED;
-identifierAsArgument: IDENTIFIER;
-
-number: NUMBER;
-string: STRING;
+orientation: (up | down | left | right);
+up: NUMBER UP;
+down: NUMBER DOWN;
+left: NUMBER LEFT;
+right: NUMBER RIGHT;
