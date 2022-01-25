@@ -36,9 +36,29 @@ public final class Procedural {
         lines.removeIf(s -> s.isEmpty());
     }
 
+    // alternative
+    /*static void removeEmptyLines(List<String> lines) {
+        for (int i = 0; i < lines.size() - 1; i++) {
+            lines.remove("");
+        }
+    }*/
+
     static void removeShortLines(List<String> lines) {
         lines.removeIf(s -> s.length() < MIN_LENGTH);
     }
+
+    // alternative
+    /*static void removeShortLines(List<String> lines) {
+        var list = new LinkedList<String>();
+        for (String line : lines) {
+            if (line.length()<MIN_LENGTH) {
+                list.add(line);
+            }
+        }
+        for (String linelist : list) {
+            lines.remove(linelist);
+        }
+    }*/
 
     static int totalLineLengths(List<String> lines) {
         int counter = 0;
