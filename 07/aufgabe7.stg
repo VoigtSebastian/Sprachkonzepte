@@ -1,7 +1,6 @@
 delimiters "$", "$"
 
-classInfo(list) ::= <<
-
+aufgabe7(list) ::= <<
 <!DOCTYPE html>
 <html lang="de">
     <head>
@@ -11,14 +10,12 @@ classInfo(list) ::= <<
         </style>
     </head>
     <body>
-    <h1>Sprachkonzepte, Aufgabe 7</h1>
-    $list:classDef(); separator="\n"$
+        <h1>Sprachkonzepte, Aufgabe 7</h1>
+        $list:classInfo(); separator="\n"$
     </body>
 </html>
-
 >>
 
-classDef(class) ::= <<
-    <h2>class $class.getName()$:</h2>
-    <br>
+classInfo(f) ::= <<
+<h2>$f.name$</h2>
 >>
