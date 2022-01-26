@@ -1,0 +1,24 @@
+delimiters "$", "$"
+
+classInfo(list) ::= <<
+
+<!DOCTYPE html>
+<html lang="de">
+    <head>
+        <style type="text/css">
+        th, td { border-bottom: thin solid; padding: 4px; text-align: left; }
+        td { font-family: monospace }
+        </style>
+    </head>
+    <body>
+    <h1>Sprachkonzepte, Aufgabe 7</h1>
+    $list:classDef(); separator="\n"$
+    </body>
+</html>
+
+>>
+
+classDef(class) ::= <<
+    <h2>class $class.getName()$:</h2>
+    <br>
+>>
