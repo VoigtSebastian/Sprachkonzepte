@@ -3,11 +3,13 @@
 
     <property name="executable" value="Generator" />
     <property name="st" value="ST-4.3.1.jar" />
+    <property name="antlr" value="../antlr-4.9.2-complete.jar" />
 
     <target name="jar" depends="compile">
         <jar destfile="${executable}.jar">
             <fileset dir="." includes="*.class" />
             <zipfileset includes="**/*.class" src="${st}" />
+            <zipfileset includes="**/*.class" src="${antlr}" />
         </jar>
     </target>
 
