@@ -1,3 +1,4 @@
+import java.util.HashMap;
 import java.util.LinkedList;
 
 import org.stringtemplate.v4.ST;
@@ -18,8 +19,28 @@ public final class Generator {
 
 final class ClassInfo {
     public final String name;
+    public LinkedList<InterfaceInfo> interfaces;
 
     public ClassInfo(Class<?> c) {
         this.name = c.getName();
+        this.interfaces = new LinkedList<>();
+        for (var i : c.getInterfaces()) {
+            var currentInterface = new InterfaceInfo(i.getName());
+
+            for (var m : i.getMethods()) {
+                currentInterface.methods.add(m.getReturnType().getName() + " " + m.getName());
+            }
+            this.interfaces.add(currentInterface);
+        }
+    }
+}
+
+final class InterfaceInfo {
+    public final String name;
+    public final LinkedList<String> methods;
+
+    public InterfaceInfo(String name) {
+        this.name = name;
+        this.methods = new LinkedList<>();
     }
 }

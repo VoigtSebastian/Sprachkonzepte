@@ -16,6 +16,25 @@ aufgabe7(list) ::= <<
 </html>
 >>
 
-classInfo(f) ::= <<
-<h2>$f.name$</h2>
+classInfo(c) ::= <<
+<h2>$c.name$</h2>
+<table>
+    <tr>
+        <th>Interface</th>
+        <th>Methods</th>
+    </tr>
+    $c.interfaces:interfaceInfo(); separator="\n"$
+</table>
+<br>
+>>
+
+
+interfaceInfo(i) ::= <<
+<tr>
+    <td valign=top>i.name</td>
+    <td>
+        $i.methods :{ m | $m$ <br>
+        }$
+    </td>
+</tr>
 >>
