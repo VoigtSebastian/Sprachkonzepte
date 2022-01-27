@@ -1,17 +1,21 @@
+zug(konstanz, 7.0, mainz, 10.59).
+zug(konstanz, 08.40, offenburg, 10.59).
+zug(konstanz, 08.40, offenburg, 13.00).
 zug(konstanz, 08.40, karlsruhe, 11.49).
+zug(konstanz, 08.53, singen, 09.26).
+zug(singen, 09.37, stuttgart, 11.32).
+zug(offenburg, 11.29, mannheim, 12.24).
 zug(karlsruhe, 12.08, mainz, 13.47).
+zug(stuttgart, 11.51, mannheim, 12.28).
+zug(mannheim, 12.39, mainz, 13.18).
 
-% Check if a connection from START to DESTINATION exists, that starts after ERLIEST
-% Append to LIST if the predicate above is true
-verbindung(START,EARLIEST,DESTINATION,LIST):-
+verbindung(START, EARLIEST, DESTINATION, LIST) :-
     zug(START, TIME, DESTINATION, ARRIVAL),
     TIME>=EARLIEST,
-    CONNECTION=[START, TIME, DESTINATION, ARRIVAL],
-    append(CONNECTION, [], LIST).
+    append([], [START, TIME, DESTINATION, ARRIVAL], LIST).
 
-% Check if there is a connection from START to somewhere, which satisfies the predicate above
-% Check if there is a connection from somewhere to DESTINATION
-verbindung(START,EARLIEST,DESTINATION,LIST):-
-    verbindung(START, EARLIEST, X, LIST),
-    verbindung(X, EARLIEST, DESTINATION, LIST).
-
+verbindung(START, EARLIEST, DESTINATION, LIST) :-
+    zug(START, TIME, STOP, STOP_DEPARTURE),
+    TIME>=EARLIEST,
+    verbindung(STOP, STOP_DEPARTURE, DESTINATION, CURRENT_ROUTE),
+    append([START, TIME, STOP, STOP_DEPARTURE], CURRENT_ROUTE, LIST).
